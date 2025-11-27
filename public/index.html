@@ -27,17 +27,22 @@
         })
 
             localStorage.setItem("token", response.data.token);
-
-            alert("You are signed in!");
             
         }
 
         const getUserInformation = async () => {
-          const response = await axios.post('http://localhost:3000/me', {
+          const response = await axios.get('http://localhost:3000/me', {
                 headers: {
                     token: localStorage.getItem("token")
                 }
             })
+            const divParent = document.querySelector('.user-info');
+            const newDiv = document.createElement('div');
+            newDiv.innerHTML = 
+            `Username: ${response.data.username}<br>
+            Password: ${response.data.password}`;
+            divParent.appendChild(newDiv);
+
         }
 
         const logout = () => {
@@ -78,9 +83,6 @@
         </div>
 
     </div>
-    
-
-    <script src="../app.js"></script>
     
 </body>
 </html>

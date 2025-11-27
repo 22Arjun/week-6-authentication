@@ -1,7 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const app = express();
-const axios = require('axios');
 
 const JWT_SECRET = "JaiShreeKrishna";
 
@@ -77,7 +76,7 @@ const auth = (req, res, next) => {
 
     const decodedUser = jwt.verify(token, JWT_SECRET);
 
-    if(decodedUser.username) {
+    if(decodedUser) {
         req.username = decodedUser.username;
         next();
 
@@ -92,7 +91,7 @@ const auth = (req, res, next) => {
 
 
 
-app.post('/me', auth, (req, res) => {
+app.get('/me', auth, (req, res) => {
     const currentUser = req.username;
    let foundUser = null;
 
